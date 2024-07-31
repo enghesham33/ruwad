@@ -1,0 +1,61 @@
+name: rawdat_hufaz
+description: Rawdat Alhufaz app تطبيق روضة الحفاظ
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.1.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  intl: 0.19.0
+  cupertino_icons: ^1.0.2
+  flutter_screenutil: ^5.8.4
+  get_it: ^7.6.0
+  dio: ^5.2.1+1
+  connectivity_plus: ^2.3.6
+  provider: ^6.0.5
+  hive:
+  hive_flutter:
+  path_provider: ^2.0.15
+  country_code_picker:
+  hijri:
+  percent_indicator:
+  flutter_otp_text_field:
+  numberpicker:
+  crypto: ^3.0.3
+  activity_ring:
+  supabase_flutter: ^2.0.0
+  zego_uikit_prebuilt_call:
+  zego_express_engine: ^3.12.4
+  zego_uikit_signaling_plugin:
+  anim_search_bar:
+  lottie:
+  carousel_slider:
+  zoom_tap_animation:
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  hive_generator:
+  build_runner:
+  flutter_lints: ^4.0.0
+
+flutter:
+  generate: true
+  uses-material-design: true
+  assets:
+    - assets/
+    - assets/images/
+  fonts:
+    - family: OoredooArabic
+      fonts:
+        - asset: assets/fonts/OoredooArabic-Regular.ttf
+          style: italic
+    - family: Cairo
+      fonts:
+        - asset: assets/fonts/Cairo-Regular.ttf
+        - asset: assets/fonts/Cairo-Bold.ttf
+          style: italic
