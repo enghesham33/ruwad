@@ -32,9 +32,9 @@ class AuthenticationRemoteDataSource {
       options: Options(
         headers: {
           ApiKeys.accept: ApiValues.acceptValue,
-         ApiKeys.phone: credentials.phone,
+         ApiKeys.phone: "0512345678",
           // ApiKeys.password: encryptPassword(credentials.password),
-          ApiKeys.password: credentials.password,
+          ApiKeys.password: "123456",
         },
       ),
     );

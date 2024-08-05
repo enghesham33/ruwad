@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:rawdat_hufaz/src/features/authentication/view_model/authentication_view_model.dart';
 import 'package:rawdat_hufaz/src/features/calls/view_model/call_request_view_model.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:rawdat_hufaz/src/features/home/presentation/screens/home_screen.dart';
 import 'package:rawdat_hufaz/src/features/wallet/view_model/points_view_model.dart';
 import 'package:rawdat_hufaz/src/shared/constants.dart';
 import 'package:rawdat_hufaz/src/shared/themes/palette.dart';
@@ -32,28 +33,30 @@ final pointsViewModel = Provider.of<PointsViewModel>(context);
   //   });
   // }
       return Scaffold(
-        body: callRequestViewModel.request!=null? 
+        body: callRequestViewModel.request!=null?
         Stack(
           children: [
             ZegoUIKitPrebuiltCall(
+
                   appID: Constants.callAppID,
                   appSign: Constants.callAppSign,
                   userID: AuthenticationViewModel.user!.personId!, // evaluator
-                  userName: AuthenticationViewModel.user!.name!, 
+                  userName: AuthenticationViewModel.user!.name!,
                   callID: callRequestViewModel.request?.roomId??"",
                   config: ZegoUIKitPrebuiltCallConfig.oneOnOneVoiceCall()
                   ..avatarBuilder=(context, size, user, extraInfo) => Container(),
-                  events: 
+                  events:
                   ZegoUIKitPrebuiltCallEvents(
-                    
+
+
                   onHangUpConfirmation:(ZegoCallHangUpConfirmationEvent event,
-                  Future<bool> Function() defaultAction,) async 
-                  {               
+                  Future<bool> Function() defaultAction,) async
+                  {
                   return await showDialog
                   (
                       context: event.context,
                       barrierDismissible: false,
-                       builder: (BuildContext context) 
+                       builder: (BuildContext context)
                        {
                          return AlertDialog
                          (
@@ -64,7 +67,7 @@ final pointsViewModel = Provider.of<PointsViewModel>(context);
                               child:  Text(AppLocalizations.of(context)!.cancel,
                                   style: const TextStyle(color: Colors.white70)),
                                   onPressed: () {Navigator.of(context).pop(false);
-                                  }                                 
+                                  }
                             ),
 
                             ElevatedButton(
@@ -72,9 +75,11 @@ final pointsViewModel = Provider.of<PointsViewModel>(context);
                                   style: const TextStyle(color: Colors.white70)),
                                   onPressed: () async
                                   {
+                                    print("object");
                                    Navigator.of(context).pop(true);
                                    ZegoUIKitPrebuiltCallController().hangUp(context);
                                    pointsViewModel.consumePoints();
+
 
                                   }
                             ),
@@ -86,19 +91,36 @@ final pointsViewModel = Provider.of<PointsViewModel>(context);
                   );
 
                },
-               onCallEnd: (event, defaultAction) 
+               onCallEnd: (event, defaultAction) async
                {
-                return defaultAction.call();
+                 print("bananssss");
+                if(mounted) {
+                  print("eeeeeeeeeeeeeeeeeeeeeeeeeeee");
+                  // Future.delayed(Duration.zero, () {
+                  //   Navigator.of(context).pop(true);
+                  // });
+                  //
+                  // ZegoUIKitPrebuiltCallController().hangUp(context);
+                  // pointsViewModel.consumePoints();
+                 // defaultAction.call();
+
+
+                  Future.delayed(Duration.zero, () {
+                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) =>HomeScreen()));
+                  });
+
+                }
+
 
                },
-               
-             
+
+
             ),
-    
-                  
+
+
 
                 )
-                
+
                 ,
                  Positioned(
                  bottom: 320,
@@ -135,13 +157,13 @@ final pointsViewModel = Provider.of<PointsViewModel>(context);
                 ),
               ),
             ),
-            
+
               ],
                 )
-          
+
         )])
        : const SizedBox.shrink()
-      
+
     );
   }
 }
